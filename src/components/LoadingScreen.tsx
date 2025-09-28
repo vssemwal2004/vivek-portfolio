@@ -7,64 +7,68 @@ interface LoadingScreenProps {
 
 const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
-  const [currentText, setCurrentText] = useState("INITIALIZING NEURAL INTERFACE...");
+  const [currentText, setCurrentText] = useState('INITIALIZING NEURAL INTERFACE...');
 
   useEffect(() => {
     const timeline = gsap.timeline();
-    
-    // Animate progress bar
+
     timeline.to({}, {
       duration: 3,
-      onUpdate: function() {
+      onUpdate: function () {
         const prog = Math.round(this.progress() * 100);
         setProgress(prog);
-        
-        // Change loading text based on progress
+
         if (prog < 30) {
-          setCurrentText("INITIALIZING NEURAL INTERFACE...");
+          setCurrentText('INITIALIZING NEURAL INTERFACE...');
         } else if (prog < 70) {
-          setCurrentText("LOADING PORTFOLIO...");
+          setCurrentText('LOADING PORTFOLIO...');
         } else if (prog < 100) {
-          setCurrentText("SYSTEM READY...");
+          setCurrentText('SYSTEM READY...');
         }
-      }
+      },
     });
 
-    // Exit animation
-    timeline.to(".loading-overlay", {
+    timeline.to('.loading-overlay', {
       duration: 1,
       scaleY: 0,
-      transformOrigin: "top",
-      ease: "power4.inOut",
+      transformOrigin: 'top',
+      ease: 'power4.inOut',
       onComplete: () => {
         onComplete();
-      }
+      },
     });
 
-    // Neural network animation
-    gsap.to(".neural-line", {
+    gsap.to('.neural-line', {
       strokeDashoffset: 0,
       duration: 2,
       stagger: 0.1,
       repeat: -1,
       yoyo: true,
-      ease: "power2.inOut"
+      ease: 'power2.inOut',
     });
 
-    // Glitch effect on name
-    gsap.to(".glitch-text", {
+    gsap.to('.glitch-text', {
       x: () => Math.random() * 4 - 2,
       duration: 0.1,
       repeat: -1,
-      yoyo: true
+      yoyo: true,
     });
-
   }, [onComplete]);
 
   return (
     <div className="loading-overlay fixed inset-0 z-50 bg-background flex items-center justify-center">
-      {/* Neural Network Background */}
-      <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1200 800">
+      {/* Spline iframe Background */}
+      <iframe
+      src='https://my.spline.design/unovacoin-7itRNKNGeE0r0zeXMQScBqVS/' 
+        frameBorder="0"
+        width="100%"
+        height="100%"
+        className="absolute inset-0 w-full h-full z-0"
+        title="Spline Scene"
+      />
+
+      {/* Neural Network Overlay */}
+      <svg className="absolute inset-0 w-full h-full opacity-20 z-10" viewBox="0 0 1200 800">
         <defs>
           <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(var(--primary))" />
@@ -88,16 +92,14 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         ))}
       </svg>
 
-      <div className="text-center z-10">
-        {/* Main Title */}
+      {/* Main Content */}
+      <div className="text-center z-20 relative">
         <h1 className="glitch-text text-6xl md:text-8xl font-bold mb-8 text-glow bg-gradient-primary bg-clip-text text-transparent">
           VIVEK SEMWAL
         </h1>
-
-        {/* Progress Bar */}
         <div className="w-80 md:w-96 mx-auto mb-8">
           <div className="relative h-2 bg-surface rounded-full overflow-hidden">
-            <div 
+            <div
               className="absolute left-0 top-0 h-full bg-gradient-primary transition-all duration-300 ease-out shadow-glow-primary"
               style={{ width: `${progress}%` }}
             />
@@ -105,14 +107,10 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           </div>
           <div className="text-primary text-xl font-medium mt-4">{progress}%</div>
         </div>
-
-        {/* Loading Text */}
         <p className="text-foreground-secondary text-lg font-light tracking-wider animate-neural-pulse">
           {currentText}
         </p>
-
-        {/* Particle Effects */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
           {Array.from({ length: 50 }).map((_, i) => (
             <div
               key={i}
@@ -122,7 +120,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
                 width: `${Math.random() * 4 + 2}px`,
                 height: `${Math.random() * 4 + 2}px`,
                 animationDelay: `${Math.random() * 8}s`,
-                animationDuration: `${8 + Math.random() * 4}s`
+                animationDuration: `${8 + Math.random() * 4}s`,
               }}
             />
           ))}

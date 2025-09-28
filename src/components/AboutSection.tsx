@@ -64,7 +64,7 @@ const AboutSection = () => {
       {/* Spline Background */}
       <div className="absolute inset-0 z-0">
         <SplineBackground 
-          scene="https://prod.spline.design/website3dherodesignanimatedrlvnt-pjtMuM8lV7vINH7mELSXQBWe/scene.splinecode"
+          scene= 'https://my.spline.design/voidspiral-uvrEZiNC7TGNHCzsN2uFtzmG/'
           className="w-full h-full opacity-30"
         />
       </div>
@@ -74,15 +74,15 @@ const AboutSection = () => {
 
       <div className="relative z-20 container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Profile Container */}
-          <div className="flex justify-center lg:justify-start">
-            <div ref={profileRef} className="relative group">
-              <div className="w-80 h-80 md:w-96 md:h-96 rounded-xl overflow-hidden glass-strong p-6">
-                <img 
-                  src="/images/profile.webp" 
-                  alt="Vivek Semwal Profile"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+         <div className="flex justify-center lg:justify-start">
+  <div ref={profileRef} className="relative group" style={{ top: '10%' }}>
+    <div className="w-80 h-80 md:w-96 md:h-96 rounded-xl overflow-hidden glass-strong p-6">
+      <img 
+        src="/images/profile.webp" 
+        alt="Vivek Semwal Profile"
+        className="w-full h-full object-cover rounded-lg"
+        style={{ objectPosition: '50% 20%' }}
+      />
                 
                 {/* Holographic overlay */}
                 <div className="absolute inset-0 bg-gradient-hologram opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-xl" />
@@ -108,7 +108,7 @@ const AboutSection = () => {
             <div>
               <h2 className="text-4xl md:text-6xl font-bold mb-6">
                 <span className="text-glow bg-gradient-primary bg-clip-text text-transparent">
-                  Neural Interface
+                  About Me
                 </span>
               </h2>
               <div className="w-20 h-1 bg-gradient-primary mb-8" />

@@ -1,305 +1,251 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Code, 
-  Database, 
+  HardDrives, 
   Wrench, 
   Brain, 
-  Globe,
-  DeviceMobile,
-  HardDrives,
-  Palette
+  Palette, 
+  DeviceMobile, 
+  Database 
 } from 'phosphor-react';
 
+// Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const SkillsSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const constellationRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef(null);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Skill clusters animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
+    // Animation for skill cards
+    gsap.fromTo(
+      '.skill-card',
+      { scale: 0.9, opacity: 0, y: 40 },
+      {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse',
+        },
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'back.out(1.7)',
       }
-    });
+    );
 
-    tl.from(".skill-cluster", {
-      scale: 0.8,
-      opacity: 0,
-      y: 60,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "back.out(1.7)"
-    })
-    .from(".skill-connection", {
-      strokeDashoffset: 100,
+    // Floating animation for icons
+    gsap.to('.skill-icon', {
+      y: -10,
       duration: 2,
-      ease: "power2.out"
-    }, "-=0.5");
-
-    // Floating animation for skill nodes
-    gsap.to(".skill-node", {
-      y: -15,
-      rotation: 3,
-      duration: 3,
       repeat: -1,
       yoyo: true,
-      ease: "power2.inOut",
-      stagger: 0.2
+      ease: 'power2.inOut',
+      stagger: 0.1,
     });
 
+    // Cleanup ScrollTrigger on component unmount
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
   }, []);
 
-  const skillCategories = [
+  const skillTabs = [
     {
-      title: "Frontend Development",
-      icon: <Code size={32} />,
-      color: "primary",
-      skills: ["React", "HTML5", "CSS3", "JavaScript", "Tailwind CSS", "TypeScript"],
-      position: { top: "20%", left: "15%" }
+      title: 'Core Development',
+      skills: [
+        {
+          title: 'Frontend Development',
+          icon: <Code size={32} />,
+          color: 'primary',
+          skills: ['React', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS', 'TypeScript'],
+        },
+        {
+          title: 'Backend Development',
+          icon: <HardDrives size={32} />,
+          color: 'secondary',
+          skills: ['Node.js', 'Express.js', 'MongoDB', 'SQL', 'RESTful APIs'],
+        },
+        {
+          title: 'UI/UX Design',
+          icon: <Palette size={32} />,
+          color: 'accent',
+          skills: ['Figma', 'Wireframing', 'Prototyping', 'User Research'],
+        },
+      ],
     },
     {
-      title: "Backend Development", 
-      icon: <HardDrives size={32} />,
-      color: "secondary",
-      skills: ["Node.js", "Express.js", "MongoDB", "SQL", "RESTful APIs"],
-      position: { top: "20%", right: "15%" }
+      title: 'Advanced Technologies',
+      skills: [
+        {
+          title: 'Tools & DevOps',
+          icon: <Wrench size={32} />,
+          color: 'accent',
+          skills: ['VS Code', 'Git', 'Docker', 'AWS', 'CI/CD'],
+        },
+        {
+          title: 'Emerging Tech',
+          icon: <Brain size={32} />,
+          color: 'plasma',
+          skills: ['IoT', 'Machine Learning', 'AI Integration', 'Blockchain'],
+        },
+        {
+          title: 'Mobile & Database',
+          icon: <DeviceMobile size={32} />,
+          color: 'primary',
+          skills: ['React Native', 'Flutter', 'PostgreSQL', 'Firebase'],
+        },
+      ],
     },
-    {
-      title: "Tools & Technologies",
-      icon: <Wrench size={32} />,
-      color: "accent",
-      skills: ["VS Code", "Figma", "Git", "Docker", "AWS"],
-      position: { bottom: "30%", left: "15%" }
-    },
-    {
-      title: "Emerging Technologies",
-      icon: <Brain size={32} />,
-      color: "plasma",
-      skills: ["IoT", "Machine Learning", "AI Integration", "Blockchain"],
-      position: { bottom: "30%", right: "15%" }
-    }
   ];
 
-  const getColorClasses = (color: string) => {
+  const getColorClasses = (color) => {
     const colorMap = {
       primary: {
-        bg: "bg-primary/20",
-        text: "text-primary",
-        border: "border-primary/30",
-        glow: "hover:shadow-glow-primary"
+        bg: 'bg-blue-500/20',
+        text: 'text-blue-500',
+        border: 'border-blue-500/30',
+        glow: 'hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]',
       },
       secondary: {
-        bg: "bg-secondary/20", 
-        text: "text-secondary",
-        border: "border-secondary/30",
-        glow: "hover:shadow-glow-secondary"
+        bg: 'bg-green-500/20',
+        text: 'text-green-500',
+        border: 'border-green-500/30',
+        glow: 'hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]',
       },
       accent: {
-        bg: "bg-accent/20",
-        text: "text-accent", 
-        border: "border-accent/30",
-        glow: "hover:shadow-glow-accent"
+        bg: 'bg-purple-500/20',
+        text: 'text-purple-500',
+        border: 'border-purple-500/30',
+        glow: 'hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]',
       },
       plasma: {
-        bg: "bg-plasma/20",
-        text: "text-plasma",
-        border: "border-plasma/30", 
-        glow: "hover:shadow-glow-plasma"
-      }
+        bg: 'bg-pink-500/20',
+        text: 'text-pink-500',
+        border: 'border-pink-500/30',
+        glow: 'hover:shadow-[0_0_15px_rgba(236,72,153,0.4)]',
+      },
     };
-    return colorMap[color as keyof typeof colorMap];
+    return colorMap[color] || colorMap.primary; // Fallback to primary if color is undefined
   };
 
   return (
-    <section id="skills" ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="relative min-h-screen py-16 bg-gray-900 overflow-hidden"
+    >
+      {/* Custom Styles for Glass Effect and Float Animation */}
+      <style jsx>{`
+        .glass {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-1/3 right-1/3 w-60 h-60 bg-plasma/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/5 left-1/5 w-56 h-56 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/5 right-1/5 w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: '1.5s' }}
+        />
       </div>
 
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-glow bg-gradient-primary bg-clip-text text-transparent">
-              Technical Expertise
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+              Technical Skills
             </span>
           </h2>
-          <div className="w-32 h-1 bg-gradient-primary mx-auto mb-8" />
-          <p className="text-xl text-foreground-secondary max-w-3xl mx-auto">
-            Neural network of interconnected technologies forming the foundation of innovative solutions
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            A curated selection of technical expertise driving innovative solutions
           </p>
         </div>
 
-        {/* Skills Constellation */}
-        <div ref={constellationRef} className="relative min-h-[600px] max-w-6xl mx-auto">
-          {/* Connection Lines SVG */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-            <defs>
-              <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-                <stop offset="50%" stopColor="hsl(var(--secondary))" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.3" />
-              </linearGradient>
-            </defs>
-            
-            {/* Neural connections between skill clusters */}
-            <line 
-              className="skill-connection"
-              x1="20%" y1="30%" 
-              x2="80%" y2="30%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="5,10"
-              strokeDashoffset="100"
-            />
-            <line 
-              className="skill-connection"
-              x1="20%" y1="30%" 
-              x2="20%" y2="70%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="5,10"
-              strokeDashoffset="100"
-            />
-            <line 
-              className="skill-connection"
-              x1="80%" y1="30%" 
-              x2="80%" y2="70%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="5,10"
-              strokeDashoffset="100"
-            />
-            <line 
-              className="skill-connection"
-              x1="20%" y1="70%" 
-              x2="80%" y2="70%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="5,10"
-              strokeDashoffset="100"
-            />
-            <line 
-              className="skill-connection"
-              x1="20%" y1="30%" 
-              x2="80%" y2="70%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="3,8"
-              strokeDashoffset="100"
-            />
-            <line 
-              className="skill-connection"
-              x1="80%" y1="30%" 
-              x2="20%" y2="70%" 
-              stroke="url(#connectionGradient)" 
-              strokeWidth="2" 
-              strokeDasharray="3,8"
-              strokeDashoffset="100"
-            />
-          </svg>
+        {/* Tabs */}
+        <div className="flex justify-center gap-4 mb-12">
+          {skillTabs.map((tab, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveTab(index)}
+              className={`px-6 py-2 rounded-full text-lg font-medium transition-all duration-300 ${
+                activeTab === index
+                  ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]'
+                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+              }`}
+            >
+              {tab.title}
+            </button>
+          ))}
+        </div>
 
-          {/* Skill Clusters */}
-          {skillCategories.map((category, index) => {
+        {/* Skill Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {skillTabs[activeTab].skills.map((category, index) => {
             const colors = getColorClasses(category.color);
             return (
               <div
                 key={index}
-                className="skill-cluster absolute"
-                style={category.position}
+                className={`skill-card glass p-6 rounded-xl transition-all duration-500 hover:scale-105 ${colors.glow}`}
               >
-                <div className={`skill-node glass-strong p-6 rounded-xl group hover:glass transition-all duration-500 ${colors.glow} cursor-pointer`}>
-                  {/* Icon */}
-                  <div className={`${colors.bg} ${colors.text} w-16 h-16 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                    {category.icon}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className={`text-lg font-bold text-center mb-4 group-hover:${colors.text} transition-colors duration-300`}>
-                    {category.title}
-                  </h3>
-
-                  {/* Skills */}
-                  <div className="space-y-2">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div
-                        key={skillIndex}
-                        className={`text-sm text-foreground-muted text-center py-1 px-3 rounded-full border ${colors.border} ${colors.bg} hover:${colors.text} transition-colors duration-300`}
-                      >
-                        {skill}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Proficiency Indicator */}
-                  <div className="mt-4">
-                    <div className="w-full bg-surface rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full bg-gradient-to-r transition-all duration-1000 ${
-                          category.color === 'primary' ? 'from-primary to-primary-glow' :
-                          category.color === 'secondary' ? 'from-secondary to-secondary-glow' :
-                          category.color === 'accent' ? 'from-accent to-accent-glow' :
-                          'from-plasma to-plasma-glow'
-                        }`}
-                        style={{ 
-                          width: `${85 + Math.random() * 15}%`,
-                          boxShadow: `0 0 10px ${
-                            category.color === 'primary' ? 'hsl(var(--primary) / 0.5)' :
-                            category.color === 'secondary' ? 'hsl(var(--secondary) / 0.5)' :
-                            category.color === 'accent' ? 'hsl(var(--accent) / 0.5)' :
-                            'hsl(var(--plasma) / 0.5)'
-                          }`
-                        }}
-                      />
-                    </div>
+                <div
+                  className={`skill-icon ${colors.bg} ${colors.text} w-14 h-14 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}
+                >
+                  {category.icon}
+                </div>
+                <h3 className={`text-lg font-bold text-center mb-4 ${colors.text}`}>
+                  {category.title}
+                </h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {category.skills.map((skill, skillIndex) => (
+                    <span
+                      key={skillIndex}
+                      className={`text-sm text-gray-400 py-1 px-3 rounded-full border ${colors.border} ${colors.bg} hover:${colors.text} transition-colors duration-300`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <div className="w-full bg-gray-800 rounded-full h-2.5">
+                    <div
+                      className={`h-2.5 rounded-full bg-gradient-to-r ${
+                        category.color === 'primary'
+                          ? 'from-blue-500 to-blue-400'
+                          : category.color === 'secondary'
+                          ? 'from-green-500 to-green-400'
+                          : category.color === 'accent'
+                          ? 'from-purple-500 to-purple-400'
+                          : 'from-pink-500 to-pink-400'
+                      }`}
+                      style={{ width: `${80 + Math.random() * 15}%` }}
+                    />
                   </div>
                 </div>
-              </div>
-            );
-          })}
-
-          {/* Central Core */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="skill-node w-24 h-24 rounded-full glass-strong flex items-center justify-center group hover:glass transition-all duration-500 hover:shadow-glow-primary">
-              <Globe className="text-primary group-hover:scale-125 transition-transform duration-300" size={40} />
-            </div>
-          </div>
-        </div>
-
-        {/* Additional Skills Grid */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {[
-            { name: "UI/UX Design", icon: <Palette size={20} />, color: "primary" },
-            { name: "Mobile Dev", icon: <DeviceMobile size={20} />, color: "secondary" },
-            { name: "Database Design", icon: <Database size={20} />, color: "accent" },
-            { name: "DevOps", icon: <HardDrives size={20} />, color: "plasma" }
-          ].map((skill, index) => {
-            const colors = getColorClasses(skill.color);
-            return (
-              <div 
-                key={index}
-                className={`skill-cluster glass p-4 rounded-lg text-center hover:glass-strong transition-all duration-300 ${colors.glow} group`}
-              >
-                <div className={`${colors.bg} ${colors.text} w-12 h-12 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                  {skill.icon}
-                </div>
-                <h4 className="text-sm font-medium text-foreground-secondary group-hover:text-foreground transition-colors duration-300">
-                  {skill.name}
-                </h4>
               </div>
             );
           })}
@@ -307,17 +253,18 @@ const SkillsSection = () => {
       </div>
 
       {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 80 }).map((_, i) => (
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 50 }).map((_, i) => (
           <div
             key={i}
-            className="particle"
+            className="absolute bg-blue-500/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
               width: `${Math.random() * 2 + 1}px`,
               height: `${Math.random() * 2 + 1}px`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${15 + Math.random() * 8}s`
+              animation: `float ${10 + Math.random() * 10}s linear infinite`,
+              animationDelay: `${Math.random() * 5}s`,
             }}
           />
         ))}

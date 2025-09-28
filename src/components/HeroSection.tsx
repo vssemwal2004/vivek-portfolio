@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ArrowDown } from 'phosphor-react';
-import SplineBackground from './SplineBackground';
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -14,52 +13,49 @@ const HeroSection = () => {
   useEffect(() => {
     const timeline = gsap.timeline({ delay: 0.5 });
 
-    // Stagger animations for hero content
     timeline
       .from(titleRef.current, {
         opacity: 0,
         y: 60,
-        filter: "blur(10px)",
+        filter: 'blur(10px)',
         duration: 1,
-        ease: "power3.out"
+        ease: 'power3.out',
       })
       .from(subtitleRef.current, {
         opacity: 0,
         y: 40,
         duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.5")
+        ease: 'power3.out',
+      }, '-=0.5')
       .from(locationRef.current, {
         opacity: 0,
         y: 30,
         duration: 0.6,
-        ease: "power3.out"
-      }, "-=0.3")
+        ease: 'power3.out',
+      }, '-=0.3')
       .from(ctaRef.current, {
         opacity: 0,
         scale: 0.8,
         duration: 0.6,
-        ease: "back.out(1.7)"
-      }, "-=0.2")
+        ease: 'back.out(1.7)',
+      }, '-=0.2')
       .from(profileRef.current, {
         opacity: 0,
         scale: 0.8,
         rotation: 10,
         duration: 1,
-        ease: "power3.out"
-      }, "-=0.8");
+        ease: 'power3.out',
+      }, '-=0.8');
 
-    // Floating animation for profile
     gsap.to(profileRef.current, {
       y: -20,
       duration: 3,
       repeat: -1,
       yoyo: true,
-      ease: "power2.inOut"
+      ease: 'power2.inOut',
     });
 
-    // Typewriter effect for subtitle
-    const text = "SOFTWARE ENGINEER";
+    const text = 'SOFTWARE ENGINEER';
     let index = 0;
     const typeInterval = setInterval(() => {
       if (subtitleRef.current && index < text.length) {
@@ -82,11 +78,15 @@ const HeroSection = () => {
 
   return (
     <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Spline 3D Background */}
+      {/* Spline iframe Background */}
       <div className="absolute inset-0 z-0">
-        <SplineBackground 
-          scene="https://prod.spline.design/unovacoin-7itRNKNGeE0r0zeXMQScBqVS/scene.splinecode"
+        <iframe
+          src="https://my.spline.design/unovacoin-7itRNKNGeE0r0zeXMQScBqVS/"
+          frameBorder="0"
+          width="100%"
+          height="100%"
           className="w-full h-full"
+          title="Spline Scene"
         />
       </div>
 
@@ -95,9 +95,8 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Text Content */}
         <div className="text-center lg:text-left space-y-6">
-          <h1 
+          <h1
             ref={titleRef}
             className="text-6xl md:text-8xl lg:text-9xl font-bold leading-none"
           >
@@ -109,21 +108,16 @@ const HeroSection = () => {
               SEMWAL
             </span>
           </h1>
-
-          <h2 
+          <h2
             ref={subtitleRef}
             className="text-2xl md:text-4xl font-light text-foreground-secondary tracking-wider min-h-[3rem]"
-          >
-            {/* Typewriter text will be inserted here */}
-          </h2>
-
-          <p 
+          />
+          <p
             ref={locationRef}
             className="text-lg md:text-xl text-foreground-muted tracking-wide"
           >
             FROM PUNJAB, PATHANKOT
           </p>
-
           <button
             ref={ctaRef}
             onClick={scrollToNext}
@@ -132,28 +126,25 @@ const HeroSection = () => {
             EXPLORE UNIVERSE
           </button>
         </div>
-
-        {/* Profile Hologram */}
         <div className="flex justify-center lg:justify-end">
-          <div 
-            ref={profileRef}
-            className="relative group"
-          >
+          <div ref={profileRef} className="relative group">
             <div className="w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden holographic-border glass p-4">
-              <img 
-                src="/images/profile.webp" 
+              <img
+                src="/images/profile.webp"
                 alt="Vivek Semwal"
                 className="w-full h-full object-cover rounded-full"
               />
-              
-              {/* Holographic scanning effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-transparent animate-hologram-scan opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-
-            {/* Floating orbs around profile */}
             <div className="absolute -top-4 -left-4 w-8 h-8 bg-primary rounded-full animate-float shadow-glow-primary" />
-            <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-secondary rounded-full animate-float shadow-glow-secondary" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 -right-8 w-4 h-4 bg-accent rounded-full animate-float shadow-glow-accent" style={{ animationDelay: '2s' }} />
+            <div
+              className="absolute -bottom-4 -right-4 w-6 h-6 bg-secondary rounded-full animate-float shadow-glow-secondary"
+              style={{ animationDelay: '1s' }}
+            />
+            <div
+              className="absolute top-1/2 -right-8 w-4 h-4 bg-accent rounded-full animate-float shadow-glow-accent"
+              style={{ animationDelay: '2s' }}
+            />
           </div>
         </div>
       </div>
@@ -180,7 +171,7 @@ const HeroSection = () => {
               width: `${Math.random() * 3 + 1}px`,
               height: `${Math.random() * 3 + 1}px`,
               animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 6}s`
+              animationDuration: `${8 + Math.random() * 6}s`,
             }}
           />
         ))}
