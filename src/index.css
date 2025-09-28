@@ -2,95 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Futuristic AI Portfolio Design System - All colors in HSL format */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Deep Space Backgrounds */
+    --background: 0 0% 3.9%; /* #0a0a0a */
+    --background-secondary: 0 0% 6.7%; /* #111111 */
+    --background-tertiary: 0 0% 10.2%; /* #1a1a1a */
+    --surface: 0 0% 11.8%; /* #1e1e1e */
+    --surface-dark: 0 0% 16.5%; /* #2a2a2a */
+    
+    /* Foreground Colors */
+    --foreground: 0 0% 100%; /* Pure white */
+    --foreground-secondary: 0 0% 89.8%; /* #e5e5e5 */
+    --foreground-muted: 0 0% 82%; /* #d1d1d1 */
+    
+    /* AI-Inspired Accent Colors */
+    --primary: 180 100% 50%; /* Electric cyan #00ffff */
+    --primary-glow: 180 100% 44%; /* #00d9ff */
+    --primary-foreground: 0 0% 3.9%;
+    
+    --secondary: 261 83% 58%; /* Neon purple #8b5cf6 */
+    --secondary-glow: 253 91% 68%; /* #a855f7 */
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 148 100% 50%; /* AI green #00ff88 */
+    --accent-glow: 104 100% 55%; /* #39ff14 */
+    --accent-foreground: 0 0% 3.9%;
+    
+    --plasma: 320 100% 50%; /* Plasma pink #ff0080 */
+    --plasma-glow: 340 100% 63%; /* #ff4081 */
+    --plasma-foreground: 0 0% 100%;
+    
+    /* Glassmorphism Effects */
+    --glass-bg: 0 0% 100% / 0.05;
+    --glass-border: 0 0% 100% / 0.1;
+    --glass-shadow: 0 0% 0% / 0.3;
+    
+    /* Neural Network Effects */
+    --neural-glow: 180 100% 50% / 0.3;
+    --neural-pulse: 261 83% 58% / 0.4;
+    --hologram-border: 148 100% 50% / 0.6;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-secondary: linear-gradient(225deg, hsl(var(--secondary)), hsl(var(--plasma)));
+    --gradient-neural: radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.2), transparent 70%);
+    --gradient-hologram: linear-gradient(45deg, 
+      hsl(var(--primary) / 0.3), 
+      hsl(var(--secondary) / 0.3), 
+      hsl(var(--accent) / 0.3), 
+      hsl(var(--plasma) / 0.3)
+    );
+    
+    /* Shadows & Glows */
+    --glow-primary: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+    --glow-secondary: 0 0 20px hsl(var(--secondary) / 0.5), 0 0 40px hsl(var(--secondary) / 0.3);
+    --glow-accent: 0 0 20px hsl(var(--accent) / 0.5), 0 0 40px hsl(var(--accent) / 0.3);
+    --glow-plasma: 0 0 20px hsl(var(--plasma) / 0.5), 0 0 40px hsl(var(--plasma) / 0.3);
+    
+    /* Interactive States */
+    --hover-glow: 0 0 30px hsl(var(--primary) / 0.8);
+    --focus-ring: 0 0 0 2px hsl(var(--primary) / 0.5);
+    
+    /* Borders & Inputs */
+    --border: hsl(var(--glass-border));
+    --input: hsl(var(--surface));
+    --ring: hsl(var(--primary));
+    
+    /* Animation Variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --animation-float: float 6s ease-in-out infinite;
+    --animation-pulse: neural-pulse 2s ease-in-out infinite alternate;
+    --animation-glow: neural-glow 3s ease-in-out infinite alternate;
+    
+    /* Typography */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --text-shadow-glow: 0 0 10px currentColor;
+    
+    /* Border Radius */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
   }
 }
 
@@ -101,5 +98,134 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-family);
+  }
+}
+
+@layer components {
+  /* Glassmorphism Base Classes */
+  .glass {
+    @apply backdrop-blur-md border border-white/10;
+    background: hsla(var(--glass-bg));
+    box-shadow: 0 8px 32px hsla(var(--glass-shadow));
+  }
+  
+  .glass-strong {
+    @apply backdrop-blur-xl border border-white/20;
+    background: hsla(0, 0%, 100%, 0.1);
+    box-shadow: 0 8px 32px hsla(var(--glass-shadow));
+  }
+  
+  /* Neural Network Effects */
+  .neural-glow {
+    box-shadow: var(--glow-primary);
+    animation: var(--animation-glow);
+  }
+  
+  .holographic-border {
+    border: 2px solid transparent;
+    background: var(--gradient-hologram) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: subtract;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+  }
+  
+  /* Text Effects */
+  .text-glow {
+    text-shadow: var(--text-shadow-glow);
+  }
+  
+  .text-glitch {
+    position: relative;
+    animation: glitch 2s infinite;
+  }
+  
+  /* Floating Animation */
+  .floating {
+    animation: var(--animation-float);
+  }
+  
+  /* Button Variants */
+  .btn-neural {
+    @apply relative overflow-hidden px-8 py-3 rounded-lg font-medium transition-all duration-300;
+    background: var(--gradient-primary);
+    box-shadow: var(--glow-primary);
+  }
+  
+  .btn-neural:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-glow);
+  }
+  
+  .btn-neural::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-neural:hover::before {
+    left: 100%;
+  }
+}
+
+@layer utilities {
+  /* Animation Keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  @keyframes neural-pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes neural-glow {
+    0% { filter: brightness(1) hue-rotate(0deg); }
+    100% { filter: brightness(1.2) hue-rotate(10deg); }
+  }
+  
+  @keyframes glitch {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    60% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+  }
+  
+  @keyframes hologram-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--primary)), transparent);
+    animation: particle-float 8s infinite linear;
+  }
+  
+  @keyframes particle-float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
   }
 }
