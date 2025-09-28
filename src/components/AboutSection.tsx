@@ -61,13 +61,7 @@ const AboutSection = () => {
 
   return (
     <section id="about" ref={sectionRef} className="relative min-h-screen flex items-center py-20 overflow-hidden">
-      {/* Spline Background */}
-      <div className="absolute inset-0 z-0">
-        <SplineBackground 
-          scene= 'https://my.spline.design/voidspiral-uvrEZiNC7TGNHCzsN2uFtzmG/'
-          className="w-full h-full opacity-30"
-        />
-      </div>
+     
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-background-secondary/80 z-10" />
