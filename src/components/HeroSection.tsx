@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ArrowDown } from 'phosphor-react';
-import Spline from '@splinetool/react-spline';
+import SplineBackground from './SplineBackground';
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -84,7 +84,7 @@ const HeroSection = () => {
     <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Spline 3D Background */}
       <div className="absolute inset-0 z-0">
-        <Spline 
+        <SplineBackground 
           scene="https://prod.spline.design/unovacoin-7itRNKNGeE0r0zeXMQScBqVS/scene.splinecode"
           className="w-full h-full"
         />

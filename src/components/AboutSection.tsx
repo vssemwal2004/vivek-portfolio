@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Spline from '@splinetool/react-spline';
+import SplineBackground from './SplineBackground';
 import { Code, Brain, Rocket } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -63,7 +63,7 @@ const AboutSection = () => {
     <section id="about" ref={sectionRef} className="relative min-h-screen flex items-center py-20 overflow-hidden">
       {/* Spline Background */}
       <div className="absolute inset-0 z-0">
-        <Spline 
+        <SplineBackground 
           scene="https://prod.spline.design/website3dherodesignanimatedrlvnt-pjtMuM8lV7vINH7mELSXQBWe/scene.splinecode"
           className="w-full h-full opacity-30"
         />
