@@ -88,6 +88,14 @@ const HeroSection = () => {
           className="w-full h-full"
           title="Spline Scene"
         />
+        
+        {/* Blur overlay to cover Spline watermark */}
+        <div className="absolute bottom-0 right-0 w-48 h-20 backdrop-blur-3xl bg-gradient-to-tl from-background/95 via-background/80 to-transparent z-10" 
+             style={{
+               maskImage: 'linear-gradient(to top left, black 40%, transparent 100%)',
+               WebkitMaskImage: 'linear-gradient(to top left, black 40%, transparent 100%)'
+             }}
+        />
       </div>
 
       {/* Gradient Overlay */}
